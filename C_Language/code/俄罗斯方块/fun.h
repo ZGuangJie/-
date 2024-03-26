@@ -9,11 +9,11 @@
     //颜色设置
     void color(int num);
     //画出方块
-    void DrawBlock(int shape, int form, int x, int y);
+    void DrawBlock(int form, int shape, int x, int y);
     //空格覆盖
-    void DrawSpace(int shape, int form, int x, int y);
+    void DrawSpace(int form, int shape, int x, int y);
     //合法性判断
-    int IsLegal(int shape, int form, int x, int y);
+    int IsLegal(int form, int shape, int x, int y);
     //判断得分与结束
     int JudeFunc();
     //游戏主体逻辑函数
