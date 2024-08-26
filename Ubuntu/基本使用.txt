@@ -1,0 +1,47 @@
+V2raya :https://v2raya.org/docs/prologue/quick-start/
+
+
+# 第一阶段：使用 CUDA 镜像作为基础镜像
+FROM nvidia/cuda:11.0-cudnn8-devel-ubuntu20.04 AS base
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装常用工具和依赖
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# 第二阶段：使用 cuDNN 镜像作为基础镜像
+FROM base AS with_cudnn
+
+# 下载和安装 cuDNN，你需要替换 your_cudnn_version 为实际版本
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcudnn8=8.2.2.26-1+cuda11.0 \
+    libcudnn8-dev=8.2.2.26-1+cuda11.0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# 第三阶段：使用 TensorFlow 镜像作为基础镜像
+FROM with_cudnn AS with_tensorflow
+
+# 安装 Python 和 TensorFlow，你需要替换 your_tensorflow_version 为实际版本
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    && pip3 install --upgrade pip \
+    && pip3 install tensorflow==2.5.0
+
+# 在这里你可以继续添加其他阶段或构建步骤
+
+# 最终阶段：选择最终基础镜像
+FROM with_tensorflow AS final
+
+# 添加最终的配置和命令
+COPY . .
+
+# 设置环境变量等
+
+# 定义容器启动时执行的命令
+CMD ["python3", "your_script.py"]
