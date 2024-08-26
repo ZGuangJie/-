@@ -1,0 +1,12 @@
+清华源：-i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+
+删除虚拟环境： conda remove -n --all
+查看环境：conda info -evs
+创建环境：conda create -n tensorflow-gpu python=3.9
+
+jupyter更换内核
+安装库：conda install ipykernel
+添加环境：python -m ipykernel install --user  --name  --display-name ""
+
+查看环境：jupyter kernelspec list
+删除环境:  jupyter kernelspec remove 
