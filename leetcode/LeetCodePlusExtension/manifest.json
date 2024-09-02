@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "LeetCode Plus Extension",
+  "version": "1.0.5",
+  "description": "力扣Plus会员插件",
+  "permissions": [
+    "cookies",
+    "activeTab",
+    "scripting",
+    "storage",
+    "webRequest",
+    "tabs",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://*.leetcode.cn/*"
+  ],
+  "background": {
+    "service_worker": "serviceWorker.min.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.cn/?promotionCode=*"],
+      "js": ["loginIndex.js"]
+    }
+  ],
+  "icons": {
+    "16": "icon/icon128.png",
+    "32": "icon/icon128.png",
+    "48": "icon/icon128.png",
+    "128": "icon/icon128.png"
+  }
+}
