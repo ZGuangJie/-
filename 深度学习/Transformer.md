@@ -115,3 +115,36 @@ Transformer 具体的工作流程大体如下：
 ![img](https://cdn.jsdelivr.net/gh/ZGuangJie/GoPicture@main/AI_Engineering/20260617150549202.png)
 
 ​	得到Q*K^T^之后，使用 Softmax 计算每一个单词对于其他单词的 attention 系数，公式中的 Softmax 是对矩阵的每一行进行 Softmax，即每一行的和都变为 1.
+
+![img](https://cdn.jsdelivr.net/gh/ZGuangJie/GoPicture@main/AI_Engineering/20260617150652616.png)
+
+​	得到 Softmax 矩阵之后可以和**V**相乘，得到最终的输出**Z**。
+
+![img](https://cdn.jsdelivr.net/gh/ZGuangJie/GoPicture@main/AI_Engineering/20260617152233852.png)
+
+​	上面的过程其实就是单词i之间的关系权重矩阵：列表示不同单词，使用Softmax做归一化
+
+​	最终单词 1 的输出**Z~1~**等于所有单词 i 的值 **V~i~** 根据 attention 系数的比例加在一起得到，如下图所示：
+
+![img](https://cdn.jsdelivr.net/gh/ZGuangJie/GoPicture@main/AI_Engineering/20260617155013521.png)
+
+#### 4.6 Multi-Head Attention
+
+​	在上一节中，我们已经知道怎么通过 Self-Attention 计算得到输出矩阵 Z，而 Multi-Head Attention 是由多个 Self-Attention 组合形成的，下图是论文中 Multi-Head Attention 的结构图
+
+![img](https://cdn.jsdelivr.net/gh/ZGuangJie/GoPicture@main/AI_Engineering/20260617160240579.png)
+
+​	从上图可以看到 Multi-Head Attention 包含多个 Self-Attention 层，首先将输入**X**分别传递到 h 个不同的 Self-Attention 中，计算得到 h 个输出矩阵**Z**。下图是 h=8 时候的情况，此时会得到 8 个输出矩阵**Z**。
+
+![img](https://cdn.jsdelivr.net/gh/ZGuangJie/GoPicture@main/AI_Engineering/20260617172126989.png)
+
+​	得到 8 个输出矩阵Z~1~ 到 Z~8~之后，Multi-Head Attention 将它们拼接在一起 **(Concat)**，然后传入一个**Linear**层，得到 Multi-Head Attention 最终的输出**Z**。
+
+![img](https://cdn.jsdelivr.net/gh/ZGuangJie/GoPicture@main/AI_Engineering/20260617172233856.png)
+
+​	可以看到 Multi-Head Attention 输出的矩阵**Z**与其输入的矩阵**X**的维度是一样的。
+
+
+
+#### 4.7 Encoder结构
+
