@@ -1,2 +1,22 @@
 # 忽略文件夹
 **/assets/
+
+# 图片/媒体
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.avi
+
+# 压缩包/安装包
+*.zip
+*.rar
+*.7z
+*.exe
+*.msi
+
+# 日志、缓存
+*.log
+.DS_Store
+__pycache__/
